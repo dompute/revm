@@ -60,7 +60,6 @@ where
 
     fn basic(&mut self, address: B160) -> Result<Option<AccountInfo>, Self::Error> {
         let add = eH160::from(address.0);
-
         let f = async {
             let nonce = self.client.get_transaction_count(add, self.block_number);
             let balance = self.client.get_balance(add, self.block_number);

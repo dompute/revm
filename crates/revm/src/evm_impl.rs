@@ -754,9 +754,9 @@ impl<'a, GSPEC: Spec, DB: Database, const INSPECT: bool> EVMImpl<'a, GSPEC, DB, 
             }
         }
 
-        let mut gas = Gas::new(inputs.gas_limit);
+        let mut gas: Gas = Gas::new(inputs.gas_limit);
         // Load account and get code. Account is now hot.
-        let bytecode = if let Some((bytecode, _)) = self.code(inputs.contract) {
+        let bytecode: Bytecode = if let Some((bytecode, _)) = self.code(inputs.contract) {
             bytecode
         } else {
             return (InstructionResult::FatalExternalError, gas, Bytes::new());
@@ -839,6 +839,11 @@ impl<'a, GSPEC: Spec, DB: Database, const INSPECT: bool> EVMImpl<'a, GSPEC, DB, 
                 }
             }
         } else {
+            println!("#### calldata:{:?},", hex::encode(inputs.input.to_vec()));
+            println!(
+                "### bytecode:{:?},",
+                hex::encode(bytecode.bytecode.to_vec())
+            );
             // Create interpreter and execute subcall
             let contract =
                 Contract::new_with_context(inputs.input.clone(), bytecode, &inputs.context);
