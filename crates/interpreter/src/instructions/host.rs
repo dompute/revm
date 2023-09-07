@@ -329,18 +329,22 @@ pub fn create<const IS_CREATE2: bool, SPEC: Spec>(
 }
 
 pub fn call<SPEC: Spec>(interpreter: &mut Interpreter, host: &mut dyn Host) {
+    println!("##### call");
     call_inner::<SPEC>(interpreter, CallScheme::Call, host);
 }
 
 pub fn call_code<SPEC: Spec>(interpreter: &mut Interpreter, host: &mut dyn Host) {
+    println!("##### call_code");
     call_inner::<SPEC>(interpreter, CallScheme::CallCode, host);
 }
 
 pub fn delegate_call<SPEC: Spec>(interpreter: &mut Interpreter, host: &mut dyn Host) {
+    println!("##### delegate_call");
     call_inner::<SPEC>(interpreter, CallScheme::DelegateCall, host);
 }
 
 pub fn static_call<SPEC: Spec>(interpreter: &mut Interpreter, host: &mut dyn Host) {
+    println!("#### static_call");
     call_inner::<SPEC>(interpreter, CallScheme::StaticCall, host);
 }
 

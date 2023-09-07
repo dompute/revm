@@ -43,8 +43,10 @@ pub fn pc(interpreter: &mut Interpreter, _host: &mut dyn Host) {
 }
 
 pub fn ret(interpreter: &mut Interpreter, _host: &mut dyn Host) {
+    println!("#### return");
     // zero gas cost gas!(interp,gas::ZERO);
     pop!(interpreter, start, len);
+    println!("#### return start: {}, len: {}", start, len);
     let len = as_usize_or_fail!(interpreter, len, InstructionResult::InvalidOperandOOG);
     if len == 0 {
         interpreter.return_range = usize::MAX..usize::MAX;

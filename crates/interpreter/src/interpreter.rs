@@ -6,6 +6,7 @@ mod stack;
 pub use analysis::BytecodeLocked;
 pub use contract::Contract;
 pub use memory::Memory;
+use revm_primitives::hex;
 pub use stack::Stack;
 
 use crate::primitives::{Bytes, Spec};
@@ -168,8 +169,21 @@ impl Interpreter {
     pub fn return_value(&self) -> Bytes {
         // if start is usize max it means that our return len is zero and we need to return empty
         if self.return_range.start == usize::MAX {
+            println!(
+                "@@@@@@@@ return value start: {}, end: {}, memory data len: {}",
+                self.return_range.start,
+                self.return_range.end,
+                self.memory.data.len()
+            );
+            println!("@@@@@@@@ start == max");
             Bytes::new()
         } else {
+            println!(
+                "@@@@@@@@ return value start: {}, end: {}, memory data len: {}",
+                self.return_range.start,
+                self.return_range.end,
+                self.memory.data.len()
+            );
             Bytes::copy_from_slice(self.memory.get_slice(
                 self.return_range.start,
                 self.return_range.end - self.return_range.start,
