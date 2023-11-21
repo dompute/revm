@@ -32,6 +32,7 @@ pub fn caller(interpreter: &mut Interpreter, _host: &mut dyn Host) {
 }
 
 pub fn codesize(interpreter: &mut Interpreter, _host: &mut dyn Host) {
+    println!("@@@@ codesize");
     gas!(interpreter, gas::BASE);
     push!(interpreter, U256::from(interpreter.contract.bytecode.len()));
 }
